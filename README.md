@@ -375,7 +375,7 @@ LLM_MODEL_BIG=deepseek-chat
 - 日志 `logs/server.log`，崩溃自动重启（最多 20 次）
 - 取消：双击 `取消自启.bat`
 
-**容器三步**（安装包已在 `C:\Users\25045\Downloads\DockerDesktopInstaller.exe`）：
+**容器三步**（安装包在 `%USERPROFILE%\Downloads\DockerDesktopInstaller.exe`）：
 
 ```powershell
 # 1. 右键 安装WSL.bat -> 以管理员身份运行（Docker 前置，必须提权）
