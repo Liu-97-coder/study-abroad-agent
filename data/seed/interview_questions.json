@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "note": "面试题库（教学样例）。真实机构应替换为历年真实面经 + 各院校 Kira/真人面高频题。",
+    "updated": "2026-11-01"
+  },
+  "questions": [
+    {
+      "qid": "q-motivation-01",
+      "category": "动机",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "Why do you want to study this programme, and why now?",
+      "focus": "动机是否具体、是否与个人经历挂钩",
+      "hints": "不要背'贵校排名高'。讲一个触发点（某门课/某次项目）→ 你发现了什么问题 → 这个项目能补什么。"
+    },
+    {
+      "qid": "q-motivation-02",
+      "category": "动机",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "Why this university rather than others?",
+      "focus": "是否真的研究过项目（课程/师资/实验室）",
+      "hints": "至少说出 2 门具体课程 + 1 位教授的研究方向或 1 个项目资源，并说明与你的目标的关系。"
+    },
+    {
+      "qid": "q-academic-01",
+      "category": "学术",
+      "major": "计算机",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "Walk me through the most challenging technical project you have done.",
+      "focus": "技术深度、问题拆解、取舍能力",
+      "hints": "按 STAR：背景-任务-你做了什么-结果（指标）。准备一个失败或返工的细节，面试官爱追问。"
+    },
+    {
+      "qid": "q-academic-02",
+      "category": "学术",
+      "major": "计算机",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "How would you explain overfitting to a non-technical stakeholder?",
+      "focus": "概念理解 + 表达能力",
+      "hints": "用类比 + 一句结论 + 一个应对手段（正则化/更多数据/交叉验证），别堆术语。"
+    },
+    {
+      "qid": "q-academic-03",
+      "category": "学术",
+      "major": "金融",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "How do you value a company? Which method do you trust most and why?",
+      "focus": "方法论完整性、批判性思维",
+      "hints": "DCF / 可比公司 / 先例交易三选一为主，说清假设与局限，给一个你实际用过的场景。"
+    },
+    {
+      "qid": "q-academic-04",
+      "category": "学术",
+      "major": "传媒",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "Tell me about a piece of content you produced that performed well. Why did it work?",
+      "focus": "数据意识 + 对平台机制的理解",
+      "hints": "给出播放/完播/互动数据，拆解选题、前 3 秒钩子、发布时机，别只说'创意好'。"
+    },
+    {
+      "qid": "q-internship-01",
+      "category": "实习",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "What was your biggest contribution during your internship?",
+      "focus": "贡献可量化、边界清晰",
+      "hints": "说清'我一个人负责的那部分'，给出前后对比数字；避免把团队成果说成个人成果。"
+    },
+    {
+      "qid": "q-internship-02",
+      "category": "实习",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "Describe a conflict with a colleague or supervisor and how you handled it.",
+      "focus": "情绪管理、沟通策略",
+      "hints": "选一个'对事不对人'的例子，讲你如何先理解对方立场，再给方案，最后结果。"
+    },
+    {
+      "qid": "q-career-01",
+      "category": "职业",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "Where do you see yourself five years after graduation?",
+      "focus": "目标是否与项目匹配、是否现实",
+      "hints": "短期（1-2 年）具体岗位 + 中期（3-5 年）能力目标，避免'想当 CEO'这种空话。"
+    },
+    {
+      "qid": "q-career-02",
+      "category": "职业",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "What is your plan B if you do not get into this programme?",
+      "focus": "成熟度、备选方案的真实性",
+      "hints": "给一个同方向的替代方案（其他项目/工作一年再申），说明你已经在推进，而不是'没想过'。"
+    },
+    {
+      "qid": "q-behaviour-01",
+      "category": "行为",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "Tell me about a time you failed. What did you learn?",
+      "focus": "反思深度、是否真的复盘过",
+      "hints": "选一个真实的、代价可控的失败，讲清根因 + 你改了什么机制（不是'下次更努力'）。"
+    },
+    {
+      "qid": "q-behaviour-02",
+      "category": "行为",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "How do you prioritise when you have multiple deadlines?",
+      "focus": "时间管理方法与实例",
+      "hints": "给一个具体周的例子：怎么排优先级、怎么取舍、怎么向上沟通延期。"
+    },
+    {
+      "qid": "q-behaviour-03",
+      "category": "行为",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "Tell me about a time you had to learn something completely new in a short time.",
+      "focus": "学习能力、方法论",
+      "hints": "讲清学习路径（文档/课程/找人问）+ 多快上手 + 产出，最好有量化。"
+    },
+    {
+      "qid": "q-team-01",
+      "category": "团队",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "What role do you usually play in a team?",
+      "focus": "自我认知、协作风格",
+      "hints": "给一个标签（推进者/拆解者/协调者）+ 一个例子，承认自己的短板。"
+    },
+    {
+      "qid": "q-ethics-01",
+      "category": "思辨",
+      "major": "计算机",
+      "country": "通用",
+      "difficulty": "高",
+      "question": "Should companies be allowed to train models on user data? Give your position.",
+      "focus": "立场清晰、论据平衡、有边界意识",
+      "hints": "先给立场，再给 1 个支持 + 1 个让步（隐私/知情同意），最后给一个可执行的政策建议。"
+    },
+    {
+      "qid": "q-ethics-02",
+      "category": "思辨",
+      "major": "金融",
+      "country": "通用",
+      "difficulty": "高",
+      "question": "Is high-frequency trading good or bad for the market?",
+      "focus": "多角度分析、避免绝对化",
+      "hints": "从流动性、公平性、系统性风险三个角度各说一句，再给结论与前提条件。"
+    },
+    {
+      "qid": "q-media-01",
+      "category": "思辨",
+      "major": "传媒",
+      "country": "通用",
+      "difficulty": "中等",
+      "question": "How should newsrooms deal with AI-generated misinformation?",
+      "focus": "行业理解、方案可行性",
+      "hints": "分'发现-核实-标注-追责'四步给方案，说一个你见过的真实案例。"
+    },
+    {
+      "qid": "q-uk-01",
+      "category": "院校",
+      "major": "通用",
+      "country": "英国",
+      "difficulty": "基础",
+      "question": "How will you adapt to studying in the UK?",
+      "focus": "跨文化适应、具体准备",
+      "hints": "给具体动作：学术写作课、语言班、社团、时间管理差异；避免'我适应能力很强'。"
+    },
+    {
+      "qid": "q-hk-01",
+      "category": "院校",
+      "major": "通用",
+      "country": "香港",
+      "difficulty": "基础",
+      "question": "Why Hong Kong rather than mainland or other regions?",
+      "focus": "区位与职业路径的匹配",
+      "hints": "讲清香港的行业资源（金融/传媒/科技）+ 与内地市场的连接 + 你的具体计划。"
+    },
+    {
+      "qid": "q-close-01",
+      "category": "收尾",
+      "major": "通用",
+      "country": "通用",
+      "difficulty": "基础",
+      "question": "Do you have any questions for us?",
+      "focus": "准备度、对项目的兴趣",
+      "hints": "问课程/实验室/就业支持的具体问题，别问'什么时候出结果'或官网能查到的内容。"
+    }
+  ]
+}

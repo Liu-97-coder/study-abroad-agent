@@ -1,0 +1,42 @@
+# 一键容器化：docker compose up -d --build
+# 控制台 http://127.0.0.1:8000/   接口 http://127.0.0.1:8000/docs
+#
+# 首次启动前建议：
+#   copy .env.example .env
+#   把 AUTH_SECRET 换成随机值（生产必须）
+services:
+  agent:
+    build: .
+    image: study-abroad-agent:1.1
+    container_name: study-abroad-agent
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.deepseek.com/v1}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL_BIG: ${LLM_MODEL_BIG:-deepseek-chat}
+      LLM_MODEL_SMALL: ${LLM_MODEL_SMALL:-deepseek-chat}
+      RAG_BACKEND: ${RAG_BACKEND:-local}
+      EMBED_BACKEND: ${EMBED_BACKEND:-hashing}
+      OCR_BACKEND: ${OCR_BACKEND:-stub}
+      AUTH_ENABLED: ${AUTH_ENABLED:-1}
+      AUTH_SECRET: ${AUTH_SECRET:-dev-secret-change-me-in-production}
+      AUTH_TTL: ${AUTH_TTL:-28800}
+      APP_PORT: 8000
+    volumes:
+      # 客户中台（crm.db）、向量索引、上传文件都在这里，容器重建不丢
+      - ./runtime:/app/runtime
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "scripts/healthcheck.py"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

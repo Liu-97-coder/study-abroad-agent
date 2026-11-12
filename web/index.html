@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>留学 Agent 控制台</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">留</div>
+      <div class="brand-text">
+        <h1>留学 Agent 控制台</h1>
+        <p>RAG · 七 Agent · 风控护栏</p>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-route="workbench">工作台</button>
+      <button class="nav-item" data-route="customers">客户台账</button>
+      <button class="nav-item" data-route="dashboard">风控看板</button>
+      <button class="nav-item" data-route="system">系统状态</button>
+    </nav>
+
+    <div class="status" id="statusBar">
+      <span class="chip" id="chipService"><i class="dot"></i><span>连接中</span></span>
+      <span class="chip" id="chipKnowledge"><i class="dot"></i><span>知识库</span></span>
+      <span class="chip" id="chipLlm"><i class="dot"></i><span>LLM</span></span>
+      <span class="chip user" id="chipUser" hidden>
+        <span id="chipUserName">—</span>
+        <button class="link" id="btnLogout" title="退出登录">退出</button>
+      </span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== 工作台 ==================== -->
+    <section id="view-workbench" class="view">
+      <div class="workbench">
+        <aside class="panel form-panel">
+          <div class="panel-head">
+            <h2>客户输入</h2>
+            <button class="link" id="btnFillDemo">填充示例</button>
+          </div>
+
+          <label class="field">
+            <span>客户编号</span>
+            <input id="inpCustomerId" value="demo-001" placeholder="demo-001" />
+          </label>
+
+          <label class="field">
+            <span>客户姓名</span>
+            <input id="inpName" value="李同学-南京理工" placeholder="张三" />
+          </label>
+
+          <label class="field">
+            <span>聊天 / 咨询记录</span>
+            <textarea id="inpChat" rows="5" placeholder="粘贴企微聊天、通话转写或顾问记录……"></textarea>
+          </label>
+
+          <details class="advanced" id="advancedBox">
+            <summary>高级业务数据（经历 / 材料 / Offer / 资金）</summary>
+            <p class="hint">
+              这些是材料、文书、Offer、签证 Agent 的输入。格式为 JSON，
+              点“填充示例”会自动带上完整演示数据。
+            </p>
+            <textarea id="inpPayload" rows="12" spellcheck="false"></textarea>
+          </details>
+
+          <div class="actions">
+            <button class="btn primary" id="btnRunAll">一键跑全流程</button>
+            <button class="btn" id="btnMatchOnly">只看选校</button>
+            <button class="btn ghost" id="btnClear">清空结果</button>
+          </div>
+
+          <p class="hint" id="runHint">
+            全流程会依次执行：选校 → 材料 → 文书 → 网申 → Offer → 签证，风控 Agent 全程并行。
+          </p>
+        </aside>
+
+        <section class="panel result-panel">
+          <div class="result-head">
+            <div>
+              <h2 id="resultTitle">执行结果</h2>
+              <p class="sub" id="resultSub">还没有数据，点左边「一键跑全流程」</p>
+            </div>
+            <div class="head-actions">
+              <button class="btn ghost" id="btnStudentLink" title="生成学生端免登录链接">学生端链接</button>
+              <div class="stage-pill" id="stagePill">—</div>
+            </div>
+          </div>
+
+          <div class="tabs" id="tabs">
+            <button class="tab active" data-tab="overview">概览</button>
+            <button class="tab" data-tab="school">选校</button>
+            <button class="tab" data-tab="report">评估报告</button>
+            <button class="tab" data-tab="document">文书</button>
+            <button class="tab" data-tab="material">材料</button>
+            <button class="tab" data-tab="application">网申</button>
+            <button class="tab" data-tab="offer">Offer</button>
+            <button class="tab" data-tab="visa">签证</button>
+            <button class="tab" data-tab="interview">面试</button>
+            <button class="tab" data-tab="risk">风控</button>
+          </div>
+
+          <div class="tab-body" id="tabBody">
+            <div class="empty">暂无数据</div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ==================== 客户台账 ==================== -->
+    <section id="view-customers" class="view hidden">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>客户台账</h2>
+          <button class="link" id="btnReloadCustomers">刷新</button>
+        </div>
+        <p class="hint">按更新时间倒序。点「打开」回到工作台并加载该客户的完整档案与 AI 产出。</p>
+        <div id="customerTable"><div class="empty">加载中…</div></div>
+      </div>
+    </section>
+
+    <!-- ==================== 风控看板 ==================== -->
+    <section id="view-dashboard" class="view hidden">
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <div class="dash-grid">
+        <div class="panel">
+          <div class="panel-head"><h2>流程漏斗</h2></div>
+          <div id="funnel"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>风险标签 TOP</h2></div>
+          <div id="riskTop"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>最近客户</h2></div>
+        <div id="recentCustomers"></div>
+      </div>
+    </section>
+
+    <!-- ==================== 系统状态 ==================== -->
+    <section id="view-system" class="view hidden">
+      <div class="kpi-grid" id="sysKpi"></div>
+      <div class="panel">
+        <div class="panel-head"><h2>运行配置</h2></div>
+        <div id="sysConfig"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>原始统计</h2></div>
+        <pre class="code" id="sysRaw">加载中…</pre>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<!-- 登录层：未登录时覆盖整个界面 -->
+<div class="login-layer" id="loginLayer" hidden>
+  <form class="login-card" id="loginForm" autocomplete="off">
+    <div class="logo">留</div>
+    <h2>留学 Agent 控制台</h2>
+    <p class="login-sub">登录后使用 · 演示账号见下方</p>
+
+    <label class="field">
+      <span>账号</span>
+      <input id="loginUser" value="admin" autocomplete="username" />
+    </label>
+    <label class="field">
+      <span>密码</span>
+      <input id="loginPass" type="password" value="admin123" autocomplete="current-password" />
+    </label>
+
+    <button type="submit" class="btn primary block" id="btnLogin">登录</button>
+    <div class="login-err" id="loginErr"></div>
+
+    <div class="login-hint">
+      <div><b>负责人</b> admin / admin123 —— 看全部客户与看板</div>
+      <div><b>顾问</b> advisor1 / 123456 —— 只看自己名下客户</div>
+    </div>
+  </form>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

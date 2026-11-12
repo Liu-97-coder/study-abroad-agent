@@ -1,0 +1,5 @@
+# 开发/测试依赖（生产镜像不需要）
+-r requirements.txt
+pytest>=8.0
+httpx>=0.27
+playwright>=1.40   # 只有 scripts/screenshot.py 用；不跑截图可不装

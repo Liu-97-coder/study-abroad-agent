@@ -1,0 +1,25 @@
+# ---------- 必装（核心链路） ----------
+fastapi>=0.110
+uvicorn[standard]>=0.27
+pydantic>=2.5
+httpx>=0.27
+numpy>=1.26
+langgraph>=0.2
+python-dotenv>=1.0
+python-multipart>=0.0.9      # 学生端文件上传
+
+# ---------- 可选：图片 OCR（学生拍照上传成绩单/存款证明） ----------
+# 轻量方案（Windows 免编译，推荐）：pip install rapidocr-onnxruntime pillow
+# rapidocr-onnxruntime>=1.3
+# pillow>=10
+
+# ---------- 可选：PDF 解析 ----------
+# pypdf>=4.0
+
+# ---------- 可选：Milvus 向量库（已在本机验证） ----------
+# pymilvus>=3.0
+# milvus-lite>=3.2
+
+# ---------- 可选：PaddleOCR（文档原始方案，体积大） ----------
+# paddleocr>=2.7
+# paddlepaddle>=2.6

@@ -1,0 +1,175 @@
+# ============================================================
+# 接口调试文件（VS Code + REST Client 扩展）
+#
+# 【怎么改】只改下面三行，下面 20 个请求全部自动跟着变：
+#   第 1 行：base        服务地址（换端口时改这里）
+#   第 2 行：customerId  客户编号（换个名字就是另一个客户，数据分开存）
+#   第 3 行：chat        学生背景描述（选校/报告/纪要都读这段）
+# 改完按 Ctrl+S 保存 → 点请求上方的 "Send Request" → 结果出现在右侧
+# ============================================================
+
+@base = http://127.0.0.1:8000
+# ↑ 以"启动服务"窗口里打印的「服务地址」为准，端口不一样就改这一行
+@customerId = demo-001
+@chat = 学生王芳，苏州大学金融学专业大四，GPA 3.6/4.0，均分 88，雅思 7.0，三段实习，申请英国金融硕士，预算 40 万，2027 年 9 月入学。
+@question = 你们能不能保录前 50？
+
+### 1. 健康检查（最先跑这个；返回 status=ok 说明服务活着）
+GET {{base}}/health
+
+### 2. 学生背景抽取（看返回的 student / risk_tags / missing_info）
+POST {{base}}/api/school/extract
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "name": "李同学",
+  "chat_text": "{{chat}}"
+}
+
+### 3. 三档选校清单（冲刺 / 匹配 / 保底）
+POST {{base}}/api/school/match
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "chat_text": "{{chat}}"
+}
+
+### 4. 背景评估报告（返回 markdown，可直接给顾问看）
+POST {{base}}/api/school/report
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}"
+}
+
+### 5. 合规话术（问"能不能保录"，看它怎么合规地拒）
+POST {{base}}/api/school/talk
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "question": "{{question}}"
+}
+
+### 6. 违规话术拦截（这里故意说违规的话，看 safety_blocked）
+POST {{base}}/api/school/talk
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "question": "我保证你百分百录取，内推渠道稳过。"
+}
+
+### 7. 咨询纪要（七段式：需求 / 背景 / 顾虑 / 意向 / 疑问 / 共识 / 待办）
+POST {{base}}/api/school/summary
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "chat_text": "家长问能不能冲前 50，孩子雅思还没考出来，预算 35 万，希望 2027 年 9 月入学。"
+}
+
+### 8. 经历结构化解析（把 experiences 换成你自己的经历试）
+POST {{base}}/api/doc/parse-experience
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "experiences": "2026.07-2026.09 字节跳动 数据分析实习生：用 SQL 清洗 50 万条订单数据，搭建自动化报表，日报产出从 3 小时压缩到 10 分钟。"
+}
+
+### 9. 文书质检（贴一段模板化文书，看它扣分）
+POST {{base}}/api/doc/quality-check
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "doc_text": "从小到大，我一直对计算机充满热情。我认为计算机是当今社会最重要的学科。贵校计算机专业非常优秀，我非常希望能够进入贵校学习。"
+}
+
+### 10. 材料清单（英国硕士 + 父母出资）
+POST {{base}}/api/material/build-list
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "submit_deadline": "2027-01-15",
+  "fund_from_parent": true
+}
+
+### 11. 网申表单校验（护照号故意填错，看能不能拦住）
+POST {{base}}/api/application/form-check
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "form_data": {
+    "name_pinyin": "LI MING",
+    "passport_no": "E12345679",
+    "gpa": 3.3,
+    "program_code": "MSC-CS-2027",
+    "application_fee_paid": true,
+    "round": "第一轮"
+  },
+  "passport_text": "Passport 姓名 LI MING 护照号 E12345678 有效期至 2031-05-01"
+}
+
+### 12. 院校邮件意图识别
+POST {{base}}/api/application/parse-mail
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "subject": "Missing documents for your application",
+  "mail_text": "We require an additional document: your final transcript. Please upload before 2027-01-15."
+}
+
+### 13. Cond Offer 解析（看条件 / 达标风险 / 押金政策）
+POST {{base}}/api/offer/parse-offer
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "offer_text": "University of Manchester\nProgramme: Advanced Computer Science\nSeptember 2027\n\nConditional Offer\nThis offer is subject to achieving an overall average of 85% and IELTS 7.0 with no band below 6.5.\nTuition deposit: GBP 1,000 payable by 2027-03-31.\nPlease respond to this offer by 2027-02-15."
+}
+
+### 14. 签证资金风险（金额不足 / 存期 22 天 / 大额临存 / 流水断档）
+POST {{base}}/api/visa/analyze-fund
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "fund_data": {
+    "amount": 300000,
+    "deposit_days": 22,
+    "deposit_date": "2026-10-20",
+    "large_inflows": [{ "amount": 150000, "days_ago": 5 }],
+    "statement_gaps": [75]
+  }
+}
+
+### 15. 签证时间线（把 arrival_date 改近一点，看风险变高）
+GET {{base}}/api/visa/get-visa-timeline?customer_id={{customerId}}&arrival_date=2027-09-01
+
+### 16. 一键跑完整条流水线（7 个 Agent 全走一遍）
+POST {{base}}/api/graph/run-all
+Content-Type: application/json
+
+{
+  "customer_id": "{{customerId}}",
+  "chat_text": "{{chat}}"
+}
+
+### 17. 看这个客户的执行链路日志
+GET {{base}}/api/graph/trace/{{customerId}}?limit=20
+
+### 18. 待办清单（紧急/普通分级）
+GET {{base}}/api/customer/{{customerId}}/tasks
+
+### 19. 风险标签
+GET {{base}}/api/customer/{{customerId}}/risks
+
+### 20. 系统状态（知识库 / LLM / 中台 统计）
+GET {{base}}/api/system/stats

@@ -1,0 +1,23 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "logs": true,
+    ".venv": true
+  },
+  "terminal.integrated.env.windows": {
+    "PYTHONIOENCODING": "utf-8"
+  },
+  "python.analysis.typeCheckingMode": "basic",
+  "python.testing.pytestEnabled": false,
+  "editor.rulers": [100],
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "python.terminal.useEnvFile": true
+}
