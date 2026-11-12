@@ -69,7 +69,9 @@ def collect_files() -> list[Path]:
         if any(part in SKIP_DIRS for part in rel_path.parts[:-1]):
             continue
         if rel in SKIP_FILES or any(fnmatch.fnmatch(rel, p) for p in SKIP_PATTERNS):
-            continue
+            # .gitignore 里的 !.env.example 反向规则要在这里显式实现
+            if rel != ".env.example":
+                continue
         out.append(path)
     return out
 
