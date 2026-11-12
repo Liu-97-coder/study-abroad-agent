@@ -11,10 +11,11 @@
 *.css     text eol=lf
 *.csv     text eol=lf
 
-# Windows 批处理必须是 CRLF，否则会一闪而过
-*.bat     text eol=crlf
-*.ps1     text eol=crlf
-*.vbs     text eol=crlf
+# Windows 批处理/脚本：原样保存，不做换行转换（必须 CRLF，否则会一闪而过）
+*.bat     -text
+*.ps1     -text
+*.vbs     -text
+*.cmd     -text
 
 *.png     binary
 *.jpg     binary
