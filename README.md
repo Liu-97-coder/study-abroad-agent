@@ -1,5 +1,10 @@
 # 留学全流程智能顾问 Agent 系统
 
+[![CI](https://github.com/Liu-97-coder/study-abroad-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Liu-97-coder/study-abroad-agent/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![Tests](https://img.shields.io/badge/tests-86%20passed-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 > 按语雀《项目经验扩展库（黑马鹏鹏讲AI）》11 篇文档落地的**可运行工程**。
 > RAG + 七 Agent 编排 + 客户中台 + 风控护栏 + Web 控制台。
 > 不配 API Key 也能把「线索 → 签证」全流程跑完（规则兜底），配好 Key 同一套代码自动切真实模型。
